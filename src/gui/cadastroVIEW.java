@@ -6,6 +6,7 @@ package gui;
  */
 
 import data.ProdutosDTO;
+import javax.swing.JOptionPane;
 import persistence.ProdutosDAO;
 
 /**
@@ -53,12 +54,6 @@ public class cadastroVIEW extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Valor:");
-
-        cadastroNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadastroNomeActionPerformed(evt);
-            }
-        });
 
         btnCadastrar.setBackground(new java.awt.Color(153, 255, 255));
         btnCadastrar.setText("Cadastrar");
@@ -139,22 +134,26 @@ public class cadastroVIEW extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cadastroNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroNomeActionPerformed
-        
-        
-    }//GEN-LAST:event_cadastroNomeActionPerformed
-
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         ProdutosDTO produto = new ProdutosDTO();
         String nome = cadastroNome.getText();
         String valor = cadastroValor.getText();
         String status = "A Venda";
-        produto.setNome(nome);
-        produto.setValor(Integer.parseInt(valor));
-        produto.setStatus(status);
         
-        ProdutosDAO produtodao = new ProdutosDAO();
-        produtodao.cadastrarProduto(produto);
+        if(!cadastroNome.getText().isEmpty() && !cadastroValor.getText().isEmpty()){
+            produto.setNome(nome);
+            produto.setValor(Integer.parseInt(valor));
+            produto.setStatus(status);
+
+            ProdutosDAO produtodao = new ProdutosDAO();
+            if(produtodao.cadastrarProduto(produto)){
+                JOptionPane.showMessageDialog(rootPane, "Cadastro realizado com sucesso!", "", JOptionPane.INFORMATION_MESSAGE);
+                cadastroNome.setText("");
+                cadastroValor.setText("");
+            }
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Preencha os campos para prosseguir.", "", JOptionPane.WARNING_MESSAGE);
+        }
         
     }//GEN-LAST:event_btnCadastrarActionPerformed
 

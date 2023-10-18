@@ -8,13 +8,13 @@ public class DBConnection {
     
     private Connection conn;
     private final String 
-            url = "jdbc:mysql://localhost:3306/leiloestdsat",
+            url = "jdbc:mysql://localhost:3306/leiloestdsat?autoReconnect=true&useSSL=false",
             user = "root",
             password = "pw";
     
     public boolean connect(){
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(url, user, password);
             System.out.println("Conexão realizada");
             return true;
