@@ -22,7 +22,6 @@ public class ProdutosDAO {
     DBConnection db = new DBConnection();
     PreparedStatement ps;
     ResultSet rs;
-    ArrayList<ProdutosDTO> listagem = new ArrayList<>();
     
     public boolean cadastrarProduto (ProdutosDTO produto){
         
@@ -47,7 +46,33 @@ public class ProdutosDAO {
         return false;
     }
     
-    public ArrayList<ProdutosDTO> listarProdutos(){
+    public ArrayList<ProdutosDTO> listarProdutos(String filter){
+        
+        ArrayList<ProdutosDTO> listagem = new ArrayList<>();
+        String sql = "SELECT * FROM tb_produtos WHERE IF(? IS NULL, status_venda = 'A Venda', status_venda LIKE ?)";
+        
+        if(db.connect()){
+            try{
+                ps = db.getConn().prepareStatement(sql);
+                ps.setString(1, filter);
+                ps.setString(2, "%" + filter + "%");
+                rs = ps.executeQuery();
+                
+                while(rs.next()){
+                    ProdutosDTO p = new ProdutosDTO();
+                    p.setId(rs.getInt("id_produto"));
+                    p.setNome(rs.getString("nome"));
+                    p.setValor(rs.getInt("valor"));
+                    p.setStatus(rs.getString("status_venda"));
+                    
+                    listagem.add(p);
+                }
+            }catch(SQLException e){
+                //System.out.println(e);
+            }finally{
+                db.disconnect();
+            }
+        }
         
         return listagem;
     }
