@@ -6,7 +6,8 @@ Projeto para controle de itens para leilão.<br>Primeiro projeto do Técnico em 
 </h4>
 
 ## Funcionalidades
-- [ ] Cadastrar produto
+- [X] Cadastrar produto
+- [X] Listar produtos
 - [ ] Vender produto
 - [ ] Consultar vendas
       
