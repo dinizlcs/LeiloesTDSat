@@ -1,4 +1,8 @@
+package gui;
 
+
+import data.ProdutosDTO;
+import persistence.ProdutosDAO;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
