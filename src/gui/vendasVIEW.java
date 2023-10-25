@@ -55,6 +55,11 @@ public class vendasVIEW extends javax.swing.JFrame {
         srcSoldItems.setViewportView(tblSoldItems);
 
         btnReturn.setText("Voltar");
+        btnReturn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnReturnMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,6 +96,10 @@ public class vendasVIEW extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReturnMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_btnReturnMouseClicked
 
     /**
      * @param args the command line arguments
