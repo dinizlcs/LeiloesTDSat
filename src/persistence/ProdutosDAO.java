@@ -77,7 +77,25 @@ public class ProdutosDAO {
         return listagem;
     }
     
-    
+    public boolean venderProduto(int id){
+        
+        String sql = "UPDATE tb_produtos SET status_venda = 'Vendido' WHERE id_produto = ?";
+        if(db.connect()){
+            try{
+                ps = db.getConn().prepareStatement(sql);
+                ps.setInt(1, id);
+                ps.executeUpdate();
+                
+                return true;
+            }catch(SQLException e){
+
+            }finally{
+                db.disconnect();
+            }
+        }
+        
+        return false;
+    }
     
         
 }

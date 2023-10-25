@@ -4,6 +4,7 @@ package gui;
 import data.ProdutosDTO;
 import persistence.ProdutosDAO;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -58,6 +59,11 @@ public class listagemVIEW extends javax.swing.JFrame {
                 "ID", "Nome", "Valor", "Status"
             }
         ));
+        listaProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                listaProdutosMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(listaProdutos);
 
         jLabel1.setFont(new java.awt.Font("Lucida Fax", 0, 18)); // NOI18N
@@ -144,7 +150,8 @@ public class listagemVIEW extends javax.swing.JFrame {
         
         ProdutosDAO produtosdao = new ProdutosDAO();
         
-        //produtosdao.venderProduto(Integer.parseInt(id));
+        produtosdao.venderProduto(Integer.parseInt(id));
+        id_produto_venda.setText("");
         listarProdutos();
     }//GEN-LAST:event_btnVenderActionPerformed
 
@@ -156,6 +163,10 @@ public class listagemVIEW extends javax.swing.JFrame {
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void listaProdutosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaProdutosMousePressed
+        id_produto_venda.setText(String.valueOf(listaProdutos.getValueAt(listaProdutos.getSelectedRow(), 0)));
+    }//GEN-LAST:event_listaProdutosMousePressed
 
     /**
      * @param args the command line arguments
@@ -212,7 +223,7 @@ public class listagemVIEW extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) listaProdutos.getModel();
             model.setNumRows(0);
             
-            ArrayList<ProdutosDTO> listagem = produtosdao.listarProdutos("");
+            ArrayList<ProdutosDTO> listagem = produtosdao.listarProdutos(null);
             
             for(int i = 0; i < listagem.size(); i++){
                 model.addRow(new Object[]{
