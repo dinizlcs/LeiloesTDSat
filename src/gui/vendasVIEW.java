@@ -4,6 +4,11 @@
  */
 package gui;
 
+import data.ProdutosDTO;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import persistence.ProdutosDAO;
+
 /**
  *
  * @author Lucas
@@ -15,6 +20,7 @@ public class vendasVIEW extends javax.swing.JFrame {
      */
     public vendasVIEW() {
         initComponents();
+        listarProdutos();
     }
 
     /**
@@ -119,6 +125,28 @@ public class vendasVIEW extends javax.swing.JFrame {
                 new vendasVIEW().setVisible(true);
             }
         });
+    }
+    
+    private void listarProdutos(){
+        try {
+            ProdutosDAO produtosdao = new ProdutosDAO();
+            
+            DefaultTableModel model = (DefaultTableModel) tblSoldItems.getModel();
+            model.setNumRows(0);
+            
+            ArrayList<ProdutosDTO> listagem = produtosdao.listarProdutos("Vendido");
+            
+            for(int i = 0; i < listagem.size(); i++){
+                model.addRow(new Object[]{
+                    listagem.get(i).getId(),
+                    listagem.get(i).getNome(),
+                    listagem.get(i).getValor(),
+                    listagem.get(i).getStatus()
+                });
+            }
+        } catch (Exception e) {
+        }
+    
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
